@@ -9,7 +9,7 @@ namespace SABI
     public class AutoSaveProject
     {
         private static double nextSaveTime;
-        private static readonly double saveInterval = 60;
+        private static readonly double saveInterval = 120;
 
         static AutoSaveProject()
         {
