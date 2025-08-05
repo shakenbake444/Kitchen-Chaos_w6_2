@@ -1,6 +1,6 @@
 using SABI;
 using UnityEngine;
-
+//initial commit
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField] private int _speed = 1;
@@ -54,6 +54,7 @@ public class PlayerScript : MonoBehaviour
     public bool IsWalking()
     {
         return _isWalking;
+        
     }
 
 }
