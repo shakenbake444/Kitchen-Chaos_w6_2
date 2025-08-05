@@ -21,7 +21,10 @@ public class PlayerScript : MonoBehaviour
         _moveDirection = new Vector3(moveVector.x, 0, moveVector.y);
         transform.position += _moveDirection * (_speed * Time.deltaTime);
 
-        transform.forward = Vector3.Slerp(transform.forward, new Vector3(moveVector.x, 0f, moveVector.y), _rotationSpeed* Time.deltaTime);
+        if (_moveDirection.magnitude > 0.05f)
+        {
+            transform.forward = Vector3.Slerp(transform.forward, new Vector3(moveVector.x, 0f, moveVector.y), _rotationSpeed* Time.deltaTime);
+        }
         
         _isWalking = _moveDirection != Vector3.zero;
         

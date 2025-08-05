@@ -462,6 +462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 7
   _rotationSpeed: 20
+  _input: {fileID: 2031838241}
 --- !u!4 &813761167
 Transform:
   m_ObjectHideFlags: 0
@@ -873,6 +874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61eaeaf4873440a498f243901dcda405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inputs
+  _inputVector: {x: 0, y: 0}
 --- !u!4 &2031838242
 Transform:
   m_ObjectHideFlags: 0
