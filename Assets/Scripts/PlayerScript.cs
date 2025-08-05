@@ -6,15 +6,26 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private int _speed = 1;
     [SerializeField] private float _rotationSpeed = 1;
     [SerializeField] private Inputs _input;
+    [SerializeField] private LayerMask countersLayerMask;
     
     private bool _isWalking = false;
     private Vector3 _moveDirection;
     private Vector3 _lastInteractDirection;
+
+    private void Start()
+    {
+        _input.OnInteractAction += _Input_OnInteractAction;
+    }
+
+    private void _Input_OnInteractAction(object sender, System.EventArgs e)
+    {
+        HandleInteractions();
+    }
     
     private void Update()
     {
         MovePlayer();
-        HandleInteractions();
+        //HandleInteractions();
     }
 
     private void MovePlayer()
@@ -82,7 +93,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         float interactDistance = 2f;
-        if (Physics.Raycast(transform.position, _lastInteractDirection, out RaycastHit raycastHit, interactDistance))
+        if (Physics.Raycast(transform.position, _lastInteractDirection, out RaycastHit raycastHit, interactDistance, countersLayerMask))
         {
             if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
             {
@@ -91,7 +102,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("-");
+            //Debug.Log("-");
         }
     }
     public bool IsWalking()

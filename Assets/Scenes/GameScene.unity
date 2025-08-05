@@ -463,6 +463,9 @@ MonoBehaviour:
   _speed: 7
   _rotationSpeed: 20
   _input: {fileID: 2031838241}
+  countersLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!4 &813761167
 Transform:
   m_ObjectHideFlags: 0
