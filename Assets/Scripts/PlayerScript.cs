@@ -1,8 +1,16 @@
+using System;
 using SABI;
 using UnityEngine;
 //initial commit
 public class PlayerScript : MonoBehaviour
 {
+    public static PlayerScript Instance { get; private set; }
+    public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
+    public class OnSelectedCounterChangedEventArgs : EventArgs
+    {
+        public ClearCounter selectedCounter;
+    }
+    
     [SerializeField] private int _speed = 1;
     [SerializeField] private float _rotationSpeed = 1;
     [SerializeField] private Inputs _input;
@@ -11,7 +19,17 @@ public class PlayerScript : MonoBehaviour
     private bool _isWalking = false;
     private Vector3 _moveDirection;
     private Vector3 _lastInteractDirection;
+    private ClearCounter _selectedCounter;
 
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(this);
+            Debug.Log("More than one PlayerScript");
+        }
+        Instance = this;
+    }
     private void Start()
     {
         _input.OnInteractAction += _Input_OnInteractAction;
@@ -19,13 +37,16 @@ public class PlayerScript : MonoBehaviour
 
     private void _Input_OnInteractAction(object sender, System.EventArgs e)
     {
-        HandleInteractions();
+        if (_selectedCounter != null)
+        {
+            _selectedCounter.Interact();
+        }
     }
     
     private void Update()
     {
         MovePlayer();
-        //HandleInteractions();
+        HandleInteractions();
     }
 
     private void MovePlayer()
@@ -97,18 +118,31 @@ public class PlayerScript : MonoBehaviour
         {
             if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
             {
-                clearCounter.Interact();
+                //Has ClearCounter
+                if (clearCounter != _selectedCounter)
+                {
+                    SetSelectedCounter(clearCounter);
+                }
+            }
+            else
+            {
+                SetSelectedCounter(null);
             }
         }
         else
         {
-            //Debug.Log("-");
+            SetSelectedCounter(null);
         }
     }
     public bool IsWalking()
     {
         return _isWalking;
-        
     }
 
+    private void SetSelectedCounter(ClearCounter selectedCounter)
+    {
+        this._selectedCounter = selectedCounter;
+        
+        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs() { selectedCounter = _selectedCounter });
+    }
 }
