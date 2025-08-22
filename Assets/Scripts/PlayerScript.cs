@@ -55,7 +55,13 @@ public class PlayerScript : MonoBehaviour
         float interactDistance = 2f;
         if (Physics.Raycast(transform.position, _lastInteractDirection, out RaycastHit raycastHit, interactDistance, countersLayerMask))
         {
-            //_selectedCounter.Interact();
+            if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
+            {
+                //clearCounter.Interact();
+                //Has ClearCounter
+                clearCounter.Interact();
+
+            }
         }
     }
     
@@ -135,7 +141,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
             {
-                clearCounter.Interact();
+                //clearCounter.Interact();
                 //Has ClearCounter
                 if (clearCounter != _selectedCounter)
                 {

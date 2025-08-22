@@ -17,8 +17,8 @@ public class Inputs : MonoBehaviour
 
     private void Interact_performed(InputAction.CallbackContext obj)
     {
-        Debug.Log(obj); 
-        //OnInteractAction?.Invoke(this, EventArgs.Empty);
+        //Debug.Log(obj); 
+        OnInteractAction?.Invoke(this, EventArgs.Empty);
     }
     
     public Vector2 GetMovementVectorNormalized()
