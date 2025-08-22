@@ -15,7 +15,7 @@ public class SelectedCounterVisual : MonoBehaviour
         if (e.selectedCounter == _clearCounter)
         {
             ShowGameObject();
-            _clearCounter.Interact();
+            //_clearCounter.Interact();
         }
         else
         {
