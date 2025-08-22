@@ -26,7 +26,7 @@ public class PlayerScript : MonoBehaviour
         if (Instance != null)
         {
             Destroy(this);
-            Debug.Log("More than one PlayerScript");
+            Debug.LogError("More than one PlayerScript");
         }
         Instance = this;
     }
